@@ -14,7 +14,7 @@ public class TCPClient {
 	public static void main(String[] args) {
 		String sentence;
 		String modifiedSentence;
-		String currentUser = "i said";
+		String currentUser = "test";
 		String respondSentence;
 		
 		BufferedReader inFromUser = new BufferedReader(
@@ -28,7 +28,7 @@ public class TCPClient {
 				DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
 				BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 				sentence = inFromUser.readLine();
-				outToServer.writeBytes(currentUser + ": " + sentence + '\n');
+				outToServer.writeBytes(sentence + '\n');
 				modifiedSentence = inFromServer.readLine();
 				respondSentence = inFromServer.readLine();
 				System.out.println(modifiedSentence);

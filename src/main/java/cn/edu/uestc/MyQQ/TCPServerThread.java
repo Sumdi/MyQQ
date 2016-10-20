@@ -40,8 +40,9 @@ public class TCPServerThread extends Thread {
 			clientSentence = inFromClient.readLine();
 			
 			// in order to distinction, turn all characters to uppercase characters 
-			capticalizedSentence = clientSentence.toUpperCase() + '\n';
-			outToClient.writeBytes(capticalizedSentence);
+			capticalizedSentence = clientSentence.toUpperCase();
+			MySQLConnect.storeMessage(capticalizedSentence);
+			outToClient.writeBytes(MySQLConnect.getMessage() + '\n');
 			outToClient.writeBytes("You are connected to Server. \n");
 		
 		} catch (IOException e) {
