@@ -25,10 +25,10 @@ public class TCPClient {
 				// 1. Create a client Socket, specify the server address and port
 				Socket clientSocket = new Socket("localhost", 8888);
 				// 2. Get the output stream to send information to the server
-				DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
+				OutputStream outToServer = clientSocket.getOutputStream();
 				BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 				sentence = inFromUser.readLine();
-				outToServer.writeBytes(sentence + '\n');
+				outToServer.write((sentence + '\n').getBytes());
 				modifiedSentence = inFromServer.readLine();
 				respondSentence = inFromServer.readLine();
 				System.out.println(modifiedSentence);

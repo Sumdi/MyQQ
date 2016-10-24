@@ -29,21 +29,22 @@ public class TCPServerThread extends Thread {
 	 */
 	public void run(){
 		BufferedReader inFromClient = null; // store info from client
-		DataOutputStream outToClient = null; // store info to server
+		OutputStream outToClient = null; // store info to server
 		
 		try {
 			
 			inFromClient = new BufferedReader(new InputStreamReader(
 					connectionSocket.getInputStream()));
-			outToClient = new DataOutputStream(
-					connectionSocket.getOutputStream());
+//			outToClient = new DataOutputStream(
+//					connectionSocket.getOutputStream());
+			outToClient = connectionSocket.getOutputStream();
 			clientSentence = inFromClient.readLine();
 			
 			// in order to distinction, turn all characters to uppercase characters 
-			capticalizedSentence = clientSentence.toUpperCase();
+			capticalizedSentence = clientSentence;
 			MySQLConnect.storeMessage(capticalizedSentence);
-			outToClient.writeBytes(MySQLConnect.getMessage() + '\n');
-			outToClient.writeBytes("You are connected to Server. \n");
+			outToClient.write((MySQLConnect.getMessage() + '\n').getBytes());
+			outToClient.write("You are connected to Server. \n".getBytes());
 		
 		} catch (IOException e) {
 			e.printStackTrace();
